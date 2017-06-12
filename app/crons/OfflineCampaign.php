@@ -9,16 +9,18 @@ class OfflineCron
 		{
 		//for each campaign fork the child process
 			
-		pcntl_fork();
-		//forming query
-		$fetch_campaign_criteria_query=formQuery(where campaign_metadata objectId= campaign_criteria_id);
-		//singleton
-		// $connector=new {Es or Mongo}Connector();
-		//mark the respective campaign ACTIVE
-		//result 
-		// $result=$connector->fire{Es or Mongo}Query($fetch_campaign_criteria_query);
-		$scroll=new scrollAPI_Service($fetch_campaign_criteria_query)
-		$croll->scrollJob($result);
+		if(!pcntl_fork())
+			{
+			//forming query
+			$fetch_campaign_criteria_query=formQuery(where campaign_metadata objectId= campaign_criteria_id);
+			//singleton
+			// $connector=new {Es or Mongo}Connector();
+			//mark the respective campaign ACTIVE
+			//result 
+			// $result=$connector->fire{Es or Mongo}Query($fetch_campaign_criteria_query);
+			$scroll=new scrollAPI_Service($fetch_campaign_criteria_query)
+			$croll->scrollJob($result);
+			}
 		}
 	
 	}

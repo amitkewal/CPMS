@@ -11,8 +11,8 @@ class OnlineCampaignService
 	function __construct($member_info,$channel)
 	{
 		# code...
-		echo "\n\n\n\n\n\n==========".$this->member_info=$member_info;
-		echo "\n==========".$this->channel=$channel;
+		$this->member_info=$member_info;
+		$this->channel=$channel;
 	}
 	public function getAllAggregationESCampaignQueries()
 	{
@@ -108,17 +108,43 @@ class OnlineCampaignService
 	{
 		//based on precedence and category
 		//After this create payload
-		return createchannelPayload();
+		return createChannelPayload();
 	}
 	
-	private function createPayload()
+	private function createchannelPayload($channel)
 	{
 		//replace placeholder
-		return $result;
+
+
+		switch ($channel) {
+			case (in_array($channel, array('ProfileBanner','ShaadiBanner','PaymentBanner'))?"$channel":false):
+				$payload=new BannerPayloadService();
+				$variableFunctionCall='get'.$channel.'Payload';
+				$finalPayload=$payload->$variableFunctionCall();
+				break;
+			
+			case (in_array($channel, array('MobileLayer','WebLayer','AndroidLayer','IosLayer'))?"$channel":false):
+				$variableFunctionCall=new LayerPayloadService();
+				$finalPayload=$payload->variableFunctionCall();
+				break;
+
+			case (in_array($channel, array('FamilyDetails','AstroDetails'))?"$channel":false):
+				$variableFunctionCall=new StopPagePayloadService();
+				$finalPayload=$payload->variableFunctionCall();
+				break;
+			
+			case (in_array($channel, array('SpecialPromo'))?"$channel":false):
+				$variableFunctionCall=new SpecialPromoPayloadService();
+				$finalPayload=$payload->variableFunctionCall();
+				break;
+
+			default:
+				# code...
+				break;
+		}
+		return $finalPayload;
 	}
 		
 }
-$dummy=new OnlineCampaignService("@mit","profile_banner");
-// $dummy->run();
 
 ?>
