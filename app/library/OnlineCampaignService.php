@@ -113,29 +113,28 @@ class OnlineCampaignService
 	
 	private function createchannelPayload($channel)
 	{
-		//replace placeholder
 
-
+		//channel value should of particular type e.g. Initial letter should be in capital
+		$variableFunctionCall='get'.$channel.'Payload';
 		switch ($channel) {
 			case (in_array($channel, array('ProfileBanner','ShaadiBanner','PaymentBanner'))?"$channel":false):
 				$payload=new BannerPayloadService();
-				$variableFunctionCall='get'.$channel.'Payload';
 				$finalPayload=$payload->$variableFunctionCall();
 				break;
 			
 			case (in_array($channel, array('MobileLayer','WebLayer','AndroidLayer','IosLayer'))?"$channel":false):
-				$variableFunctionCall=new LayerPayloadService();
-				$finalPayload=$payload->variableFunctionCall();
+				$payload=new LayerPayloadService();
+				$finalPayload=$payload->$variableFunctionCall();
 				break;
 
 			case (in_array($channel, array('FamilyDetails','AstroDetails'))?"$channel":false):
-				$variableFunctionCall=new StopPagePayloadService();
-				$finalPayload=$payload->variableFunctionCall();
+				$payload=new StopPagePayloadService();
+				$finalPayload=$payload->$variableFunctionCall();
 				break;
 			
 			case (in_array($channel, array('SpecialPromo'))?"$channel":false):
-				$variableFunctionCall=new SpecialPromoPayloadService();
-				$finalPayload=$payload->variableFunctionCall();
+				$payload=new SpecialPromoPayloadService();
+				$finalPayload=$payload->$variableFunctionCall();
 				break;
 
 			default:

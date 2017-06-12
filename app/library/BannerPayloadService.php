@@ -3,21 +3,22 @@ class BannerPayloadService
 {
 	public function __construct()
 	{
-		//load cofig properties
-		//connect with the loaded ip + port
 	}
 	
 
 	public function getProfileBannerPayload()
 	{
+		//replace placeholder
 		
 	}
 	public function getShaadiBannerPayload()
 	{
+		//replace placeholder
 		
 	}
 	public function getPaymentBannerPayload()
 	{
+		//replace placeholder
 		
 	}
 	

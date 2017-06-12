@@ -3,8 +3,6 @@ class StopPagePayloadService
 {
 	public function __construct()
 	{
-		//load cofig properties
-		//connect with the loaded ip + port
 	}
 	
 
